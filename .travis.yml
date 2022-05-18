@@ -21,3 +21,5 @@ after_success:
   - docker push ojmedrano/multi-nginx
   - docker push ojmedrano/multi-server
   - docker push ojmedrano/multi-worker
+
+  
