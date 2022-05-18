@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ojmedrano/react-test -f ./client/Dockerfile.dev
+
+script:
+  - docker run -e CI=true ojmedrano/react-test npm test
+
+after_success:
+  - docker build -t ojmedrano/multi-client ./client
+  - docker build -t ojmedrano/multi-nginx ./nginx  
+  - docker build -t ojmedrano/multi-server ./server  
+  - docker build -t ojmedrano/multi-worker ./worker  
+
+  #Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push ojmedrano/multi-client
+  - docker push ojmedrano/multi-nginx
+  - docker push ojmedrano/multi-server
+  - docker push ojmedrano/multi-worker
