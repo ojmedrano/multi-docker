@@ -10,9 +10,9 @@ script:
 
 after_success:
   - docker build -t osjmeg/multi-client ./client
-  - docker build -t osjmeg/multi-nginx ./nginx  
-  - docker build -t osjmeg/multi-server ./server  
-  - docker build -t osjmeg/multi-worker ./worker  
+  - docker build -t osjmeg/multi-nginx ./nginx
+  - docker build -t osjmeg/multi-server ./server
+  - docker build -t osjmeg/multi-worker ./worker
 
   #Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
